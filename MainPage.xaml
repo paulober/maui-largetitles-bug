@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BugTest"
+             x:Class="BugTest.MainPage"
+             x:Name="TestPageRoot"
+             Shell.NavBarIsVisible="True"
+             x:DataType="local:MainPageViewModel"
+             Title="Test Title">
+    
+    <ContentPage.Content>
+        <!-- Two-layer layout-->
+        <Grid SafeAreaEdges="None">
+            <!-- Layer 1: Content with RefreshView + CollectionView -->
+            <Grid SafeAreaEdges="SoftInput" Padding="6,0,6,0">
+                <RefreshView IsVisible="{Binding HasContent}"
+                             IsRefreshing="{Binding IsRefreshing}"
+                             SafeAreaEdges="None">
+                    <CollectionView ItemsSource="{Binding Items}"
+                                    VerticalScrollBarVisibility="Never"
+                                    SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <Label Text="{Binding .}" 
+                                       Padding="16"
+                                       FontSize="16"/>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+            </Grid>
+
+            <!-- Layer 2: Loading Overlay -->
+            <Grid SafeAreaEdges="None" InputTransparent="True">
+                <!-- Loading State -->
+                <VerticalStackLayout IsVisible="{Binding IsBusy}"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     InputTransparent="False"
+                                     Spacing="20">
+                    <Label Text="Loading..." TextColor="{DynamicResource LabelColor}"/>
+                    <ActivityIndicator IsRunning="True" />
+                </VerticalStackLayout>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
