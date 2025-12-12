@@ -11,6 +11,10 @@
     <ContentPage.Content>
         <!-- Two-layer layout-->
         <Grid SafeAreaEdges="None">
+            <!-- If this is added then the title is visible from the beginning -->
+            <!--<Grid SafeAreaEdges="SoftInput">
+                <Label Text="Nice"/>
+            </Grid>-->
             <!-- Layer 1: Content with RefreshView + CollectionView -->
             <Grid SafeAreaEdges="SoftInput" Padding="6,0,6,0">
                 <RefreshView IsVisible="{Binding HasContent}"
@@ -30,6 +34,11 @@
                 </RefreshView>
             </Grid>
 
+            <!-- if this is added without the first content CollectionView isn't scrollable anymore => can't trigger title -->
+            <!--<Grid SafeAreaEdges="SoftInput">
+                <Label Text="Nice"/>
+            </Grid>-->
+            
             <!-- Layer 2: Loading Overlay -->
             <Grid SafeAreaEdges="None" InputTransparent="True">
                 <!-- Loading State -->
